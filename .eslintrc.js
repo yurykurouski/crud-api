@@ -1,9 +1,14 @@
 module.exports = {
+    "parser": "@typescript-eslint/parser",
     "env": {
         "browser": true,
         "es2021": true
     },
-    "plugins": ["simple-import-sort", "unused-imports"],
+    "plugins": [
+        "@typescript-eslint/eslint-plugin",
+        "simple-import-sort",
+        "unused-imports"
+    ],
     "extends": ["eslint:recommended", "plugin:n/recommended"],
     "overrides": [
         {
