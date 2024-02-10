@@ -1,6 +1,6 @@
 import http from "http";
 
-import { handleRequest } from "./requests/index.ts";
+import { router } from "./router/router.ts";
 
 const PORT = process.env.PORT || 4000;
 
@@ -10,4 +10,4 @@ server.listen(PORT, () => {
   console.log(`Server started on http://localhost:${PORT}`);
 });
 
-server.on("request", handleRequest);
+server.on("request", router);
