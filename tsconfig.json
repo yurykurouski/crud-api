@@ -1,20 +1,5 @@
 {
   "compilerOptions": {
-    "baseUrl": "src",
-    "paths": {
-      "types": [
-        "types"
-      ],
-      "constants": [
-        "constants"
-      ],
-      "utils": [
-        "utils"
-      ],
-      "store": [
-        "store"
-      ],
-    },
     "forceConsistentCasingInFileNames": true,
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,

@@ -1,5 +1,9 @@
 module.exports = {
     "parser": "@typescript-eslint/parser",
+    parserOptions: {
+        sourceType: 'module',
+        "ecmaVersion": "latest",
+    },
     "env": {
         "browser": true,
         "es2021": true
@@ -23,10 +27,6 @@ module.exports = {
             }
         }
     ],
-    "parserOptions": {
-        "ecmaVersion": "latest",
-        "sourceType": "module"
-    },
     "rules": {
         "no-unused-vars": 0,
         semi: 1,
