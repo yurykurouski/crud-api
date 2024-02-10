@@ -16,12 +16,19 @@ class UserStore {
     return user;
   }
 
-  private _validateUser(user: User): void {
-    // TODO: add more validation
+  private _validateUser(user: User, isNew: boolean): void {
+    let count = 0;
+
     for (let prop in user) {
+      count += 1;
       if (!ALLOWED_USER_FIELDS.includes(prop)) {
         throw new Error("Invalid user data");
       }
+    }
+
+    if (isNew && count < 3) {
+      count = 0;
+      throw new Error("Invalid user data");
     }
   }
 
@@ -32,7 +39,7 @@ class UserStore {
   public createUser(data: User) {
     const uuid = uuidv4();
 
-    this._validateUser(data);
+    this._validateUser(data, true);
 
     const user = {
       id: uuid,
