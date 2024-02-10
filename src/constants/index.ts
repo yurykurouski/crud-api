@@ -9,3 +9,5 @@ export const ALLOWED_USER_FIELDS = ['username', 'age', 'hobbies', 'id'];
 
 export const MESSAGE_WRONG_USER_DATA = 'Wrong user data';
 export const MESSAGE_INVALID_PARAM = 'Invalid param';
+export const MESSAGE_NO_USER = "User doesn't exist";
+export const MESSAGE_INVALID_ID = "Invalid user ID";
