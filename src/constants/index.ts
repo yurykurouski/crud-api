@@ -12,3 +12,4 @@ export const MESSAGE_INVALID_PARAM = 'Invalid param';
 export const MESSAGE_NO_USER = "User doesn't exist";
 export const MESSAGE_INVALID_ID = "Invalid user ID";
 export const MESSAGE_INVALID_URL = "Invalid URL";
+export const MESSAGE_INTERNAL_ERROR = "Please try later";

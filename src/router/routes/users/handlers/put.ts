@@ -1,7 +1,11 @@
 import { IncomingMessage } from "http";
 import { validate } from 'uuid';
 
-import { MESSAGE_INVALID_ID, MESSAGE_WRONG_USER_DATA } from "../../../../constants/index.ts";
+import {
+  MESSAGE_INTERNAL_ERROR,
+  MESSAGE_INVALID_ID,
+  MESSAGE_WRONG_USER_DATA
+} from "../../../../constants/index.ts";
 import UserStore from '../../../../store/index.ts';
 import { TServerResponse } from "../../../../types/index.ts";
 import { parseReqParams, sendData } from "../../../../utils/index.ts";
@@ -32,4 +36,5 @@ export const handlePut = (
   } else {
     sendData(res, MESSAGE_INVALID_ID, 400);
   }
+  req.on('error', () => sendData(res, MESSAGE_INTERNAL_ERROR, 500));
 };
