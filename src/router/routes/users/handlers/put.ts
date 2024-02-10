@@ -16,6 +16,10 @@ export const handlePut = (
 ) => {
   const userId = parseReqParams(req.url?.slice(1))?.[0];
 
+  if (!userId) {
+    return sendData(res, MESSAGE_INVALID_ID, 400);
+  }
+
   if (validate(userId)) {
     const chunks: Uint8Array[] = [];
 

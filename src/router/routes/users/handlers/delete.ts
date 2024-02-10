@@ -13,9 +13,13 @@ export const handleDelete = (
 ) => {
   const userId = parseReqParams(req.url?.slice(1))?.[0];
 
+  if (!userId) {
+    return sendData(res, MESSAGE_INVALID_ID, 400);
+  }
+
   if (validate(userId)) {
     try {
-      UserStore.deleteUser(userId!);
+      UserStore.deleteUser(userId);
       sendData(res, '', 204);
     } catch {
       sendData(res, MESSAGE_NO_USER, 404);
