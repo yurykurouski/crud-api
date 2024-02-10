@@ -1,6 +1,10 @@
 import { v4 as uuidv4 } from 'uuid';
 
-import { ALLOWED_USER_FIELDS } from "../constants/index.ts";
+import {
+  ALLOWED_USER_FIELDS,
+  MESSAGE_NO_USER,
+  MESSAGE_WRONG_USER_DATA
+} from "../constants/index.ts";
 import { User } from "../types/index.ts";
 
 class UserStore {
@@ -16,19 +20,20 @@ class UserStore {
     return user;
   }
 
-  private _validateUser(user: User, isNew: boolean): void {
+  private _validateUser(user: User): void {
     let count = 0;
 
     for (let prop in user) {
       count += 1;
+
       if (!ALLOWED_USER_FIELDS.includes(prop)) {
-        throw new Error("Invalid user data");
+        throw new Error(MESSAGE_WRONG_USER_DATA);
       }
     }
 
-    if (isNew && count < 3) {
+    if (count < 3) {
       count = 0;
-      throw new Error("Invalid user data");
+      throw new Error(MESSAGE_WRONG_USER_DATA);
     }
   }
 
@@ -39,7 +44,7 @@ class UserStore {
   public createUser(data: User) {
     const uuid = uuidv4();
 
-    this._validateUser(data, true);
+    this._validateUser(data);
 
     const user = {
       id: uuid,
@@ -50,6 +55,21 @@ class UserStore {
   }
   public getUser(userID: string): User | undefined {
     return this._users.find(u => u.id === userID);
+  }
+
+  public updateUser(userID: string, userData: User): User {
+    this._validateUser(userData);
+
+    const userIndex = this._users.findIndex(u => u.id === userID);
+
+    if (userIndex < 0) {
+      throw new Error(MESSAGE_NO_USER);
+    }
+
+    return this._users[userIndex] = {
+      id: userID,
+      ...userData
+    };
   }
 }
 
