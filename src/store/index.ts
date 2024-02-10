@@ -71,6 +71,19 @@ class UserStore {
       ...userData
     };
   }
+
+  public deleteUser(userID: string) {
+    const index = this._users.findIndex(u => u.id === userID);
+
+    if (index < 0) {
+      throw new Error(MESSAGE_NO_USER);
+    }
+
+    this._users = [
+      ...this._users.slice(0, index),
+      ...this._users.slice(index + 1)
+    ];
+  }
 }
 
 export default new UserStore();
