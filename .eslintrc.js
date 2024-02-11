@@ -43,5 +43,8 @@ module.exports = {
                 argsIgnorePattern: '^_',
             },
         ],
+    },
+    "env": {
+        "jest/globals": true
     }
 };

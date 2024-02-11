@@ -7,7 +7,7 @@ import {
 } from '../constants';
 import { User } from '../types';
 
-class UserStore {
+export class UserStore {
   private _users: User[];
 
   constructor() {
