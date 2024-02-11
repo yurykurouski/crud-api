@@ -3,15 +3,14 @@ import {
   METHOD_DELETE,
   METHOD_GET,
   METHOD_POST,
-  METHOD_PUT
-} from "../../../constants/index.ts";
-import { THandleUsersRoute } from "../../../types/index.ts";
-import { sendData } from "../../../utils/index.ts";
-import { handleDelete } from "./handlers/delete.ts";
-import { handleGet } from "./handlers/get.ts";
-import { handlePost } from "./handlers/post.ts";
-import { handlePut } from "./handlers/put.ts";
-
+  METHOD_PUT,
+} from '../../../constants';
+import { THandleUsersRoute } from '../../../types';
+import { sendData } from '../../../utils';
+import { handleDelete } from './handlers/delete';
+import { handleGet } from './handlers/get';
+import { handlePost } from './handlers/post';
+import { handlePut } from './handlers/put';
 
 export const handleUsersRoute: THandleUsersRoute = (req, method, res) => {
   switch (method) {

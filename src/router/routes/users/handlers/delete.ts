@@ -1,16 +1,12 @@
 import { IncomingMessage } from 'http';
 import { validate } from 'uuid';
 
-import { MESSAGE_INVALID_ID, MESSAGE_NO_USER } from "../../../../constants/index.ts";
-import UserStore from '../../../../store/index.ts';
-import { TServerResponse } from '../../../../types/index.ts';
-import { parseReqParams, sendData } from "../../../../utils/index.ts";
+import { MESSAGE_INVALID_ID, MESSAGE_NO_USER } from '../../../../constants';
+import UserStore from '../../../../store';
+import { TServerResponse } from '../../../../types';
+import { parseReqParams, sendData } from '../../../../utils';
 
-
-export const handleDelete = (
-  req: IncomingMessage,
-  res: TServerResponse
-) => {
+export const handleDelete = (req: IncomingMessage, res: TServerResponse) => {
   const userId = parseReqParams(req.url?.slice(1))?.[0];
 
   if (!userId) {

@@ -1,15 +1,12 @@
 import { IncomingMessage } from 'http';
 import { validate } from 'uuid';
 
-import { MESSAGE_INVALID_ID, MESSAGE_NO_USER } from '../../../../constants/index.ts';
-import UserStore from '../../../../store/index.ts';
-import { TServerResponse } from '../../../../types/index.ts';
-import { parseReqParams, sendData } from "../../../../utils/index.ts";
+import { MESSAGE_INVALID_ID, MESSAGE_NO_USER } from '../../../../constants';
+import UserStore from '../../../../store';
+import { TServerResponse } from '../../../../types';
+import { parseReqParams, sendData } from '../../../../utils';
 
-export const handleGet = (
-  req: IncomingMessage,
-  res: TServerResponse
-) => {
+export const handleGet = (req: IncomingMessage, res: TServerResponse) => {
   const params = parseReqParams(req.url?.slice(1));
 
   if (params?.length) {
@@ -23,7 +20,6 @@ export const handleGet = (
       } else {
         return sendData(res, MESSAGE_NO_USER, 404);
       }
-
     } else {
       sendData(res, MESSAGE_INVALID_ID, 400);
     }

@@ -1,19 +1,16 @@
-import { IncomingMessage } from "http";
+import { IncomingMessage } from 'http';
 import { validate } from 'uuid';
 
 import {
   MESSAGE_INTERNAL_ERROR,
   MESSAGE_INVALID_ID,
-  MESSAGE_WRONG_USER_DATA
-} from "../../../../constants/index.ts";
-import UserStore from '../../../../store/index.ts';
-import { TServerResponse } from "../../../../types/index.ts";
-import { parseReqParams, sendData } from "../../../../utils/index.ts";
+  MESSAGE_WRONG_USER_DATA,
+} from '../../../../constants';
+import UserStore from '../../../../store';
+import { TServerResponse } from '../../../../types';
+import { parseReqParams, sendData } from '../../../../utils';
 
-export const handlePut = (
-  req: IncomingMessage,
-  res: TServerResponse
-) => {
+export const handlePut = (req: IncomingMessage, res: TServerResponse) => {
   const userId = parseReqParams(req.url?.slice(1))?.[0];
 
   if (!userId) {
@@ -23,10 +20,10 @@ export const handlePut = (
   if (validate(userId)) {
     const chunks: Uint8Array[] = [];
 
-    req.on("data", (chunk) => {
+    req.on('data', (chunk) => {
       chunks.push(chunk);
     });
-    req.on("end", () => {
+    req.on('end', () => {
       const data = Buffer.concat(chunks).toString();
 
       try {

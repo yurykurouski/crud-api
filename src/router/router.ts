@@ -1,7 +1,7 @@
-import { MESSAGE_INVALID_URL, URL_PATH_USERS } from "../constants/index.ts";
-import { THandleRequest } from "../types/index.ts";
-import { parseReqParams, sendData } from "../utils/index.ts";
-import { handleUsersRoute } from "./routes/users/index.ts";
+import { MESSAGE_INVALID_URL, URL_PATH_USERS } from '../constants';
+import { THandleRequest } from '../types';
+import { parseReqParams, sendData } from '../utils';
+import { handleUsersRoute } from './routes/users';
 
 export const router: THandleRequest = (req, res) => {
   const params = parseReqParams(req.url);
