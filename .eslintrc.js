@@ -29,6 +29,7 @@ module.exports = {
     ],
     "rules": {
         "no-unused-vars": 0,
+        "n/no-missing-import": 0,
         semi: 1,
         "simple-import-sort/imports": 2,
         "simple-import-sort/exports": 2,
