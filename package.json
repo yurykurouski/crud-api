@@ -7,6 +7,7 @@
     "start:dev": "nodemon --exec ts-node -T ./src/index.ts --mode=dev",
     "start:multi": "nodemon --exec ts-node -T ./src/index.ts --multi --mode=dev",
     "start:prod": "webpack && node ./dist/bundle.js --mode=prod",
+    "test": "jest",
     "lint": "eslint \"src/**/*.ts\" --fix",
     "type:check": "tsc --noemit --skipLibCheck",
     "bundle": "webpack"
