@@ -1,9 +1,6 @@
 import {
-  MESSAGE_INVALID_URL,
-  METHOD_DELETE,
-  METHOD_GET,
-  METHOD_POST,
-  METHOD_PUT,
+  MESSAGE,
+  METHOD,
 } from '../../../constants';
 import { THandleUsersRoute } from '../../../types';
 import { sendData } from '../../../utils';
@@ -14,20 +11,20 @@ import { handlePut } from './handlers/put';
 
 export const handleUsersRoute: THandleUsersRoute = (req, method, res) => {
   switch (method) {
-    case METHOD_POST:
+    case METHOD.POST:
       handlePost(req, res);
       break;
-    case METHOD_GET:
+    case METHOD.GET:
       handleGet(req, res);
       break;
-    case METHOD_PUT:
+    case METHOD.PUT:
       handlePut(req, res);
       break;
-    case METHOD_DELETE:
+    case METHOD.DELETE:
       handleDelete(req, res);
       break;
 
     default:
-      sendData(res, MESSAGE_INVALID_URL, 404);
+      sendData(res, MESSAGE.INVALID_URL, 404);
   }
 };

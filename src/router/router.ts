@@ -1,4 +1,4 @@
-import { MESSAGE_INVALID_URL, URL_PATH_USERS } from '../constants';
+import { MESSAGE, URL_PATH_USERS } from '../constants';
 import { THandleRequest } from '../types';
 import { parseReqParams, sendData } from '../utils';
 import { handleUsersRoute } from './routes/users';
@@ -12,6 +12,6 @@ export const router: THandleRequest = (req, res) => {
       break;
 
     default:
-      sendData(res, MESSAGE_INVALID_URL, 404);
+      sendData(res, MESSAGE.INVALID_URL, 404);
   }
 };

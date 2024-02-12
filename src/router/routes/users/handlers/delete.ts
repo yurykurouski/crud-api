@@ -1,7 +1,7 @@
 import { IncomingMessage } from 'http';
 import { validate } from 'uuid';
 
-import { MESSAGE_INVALID_ID, REQUESTS } from '../../../../constants';
+import { MESSAGE, REQUESTS } from '../../../../constants';
 import { TServerResponse } from '../../../../types';
 import { parseReqParams, sendData } from '../../../../utils';
 import { handleDataRequest } from '../../../handleDataRequest';
@@ -10,7 +10,7 @@ export const handleDelete = (req: IncomingMessage, res: TServerResponse) => {
   const userId = parseReqParams(req.url?.slice(1))?.[0];
 
   if (!userId) {
-    return sendData(res, MESSAGE_INVALID_ID, 400);
+    return sendData(res, MESSAGE.INVALID_ID, 400);
   }
 
   if (validate(userId)) {
@@ -22,6 +22,6 @@ export const handleDelete = (req: IncomingMessage, res: TServerResponse) => {
       }
     }, userId);
   } else {
-    sendData(res, MESSAGE_INVALID_ID, 400);
+    sendData(res, MESSAGE.INVALID_ID, 400);
   }
 };

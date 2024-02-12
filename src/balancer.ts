@@ -2,7 +2,7 @@ import { Serializable } from "child_process";
 import cluster, { Worker } from "cluster";
 import { cpus } from 'os';
 
-import { MESSAGE_NO_USER, REQUESTS } from "./constants";
+import { MESSAGE, REQUESTS } from "./constants";
 import { UserStore } from "./store";
 
 
@@ -66,7 +66,7 @@ class Balancer {
           try {
             worker.send(this._storage?.deleteUser(msg.param) ?? '');
           } catch (e) {
-            worker.send(MESSAGE_NO_USER);
+            worker.send(MESSAGE.NO_USER);
           }
           break;
         case REQUESTS.POST_USER:

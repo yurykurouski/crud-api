@@ -3,8 +3,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 import {
   ALLOWED_USER_FIELDS,
-  MESSAGE_NO_USER,
-  MESSAGE_WRONG_USER_DATA,
+  MESSAGE,
   REQUESTS,
 } from '../constants';
 import { User } from '../types';
@@ -28,13 +27,13 @@ export class UserStore {
       count += 1;
 
       if (!ALLOWED_USER_FIELDS.includes(prop)) {
-        throw new Error(MESSAGE_WRONG_USER_DATA);
+        throw new Error(MESSAGE.WRONG_USER_DATA);
       }
     }
 
     if (count < 3) {
       count = 0;
-      throw new Error(MESSAGE_WRONG_USER_DATA);
+      throw new Error(MESSAGE.WRONG_USER_DATA);
     }
   }
 
@@ -63,7 +62,7 @@ export class UserStore {
     const userIndex = this._users.findIndex((u) => u.id === userID);
 
     if (userIndex < 0) {
-      throw new Error(MESSAGE_NO_USER);
+      throw new Error(MESSAGE.NO_USER);
     }
 
     return (this._users[userIndex] = {
@@ -76,7 +75,7 @@ export class UserStore {
     const index = this._users.findIndex((u) => u.id === userID);
 
     if (index < 0) {
-      throw new Error(MESSAGE_NO_USER);
+      throw new Error(MESSAGE.NO_USER);
     }
 
     this._users = [
@@ -95,7 +94,7 @@ export class UserStore {
         try {
           return this.deleteUser(param as string);
         } catch (e) {
-          return MESSAGE_NO_USER;
+          return MESSAGE.NO_USER;
         }
       case REQUESTS.POST_USER:
         return this.createUser(JSON.parse(param as string));
