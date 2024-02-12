@@ -21,3 +21,9 @@ export type THandleUsersRoute = (
   method: string | undefined,
   res: TServerResponse,
 ) => void;
+
+export type TSendData = <T>(
+  res: TServerResponse,
+  data: T,
+  code: number
+) => void;

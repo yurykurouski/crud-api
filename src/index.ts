@@ -1,19 +1,34 @@
 import 'dotenv/config';
 
-import http from 'http';
+import cluster from 'cluster';
+import { cpus } from 'os';
 
-import { router } from './router/router';
+import { balancer } from './balancer';
+import { IS_MULTI } from './constants';
+import { startServer } from './startServer';
+import { UserStore } from './store';
 
-const PORT = process.env.PORT;
+const cpusNum = cpus().length;
 
-export const server = http.createServer();
+if (IS_MULTI) {
+  if (cluster.isPrimary) {
+    const storage = new UserStore();
+    balancer.storage = storage;
 
-if (PORT) {
-  server.listen(PORT, () => {
-    console.log(`Server started on http://localhost:${PORT}`);
-  });
+    for (let i = 1; i < cpusNum; i++) {
+      const worker = cluster.fork({ WORKER_NUM: i });
+      balancer.addWorker(worker);
+    }
 
-  server.on('request', router);
+    startServer(0);
+
+    balancer.listen();
+  } else {
+    startServer(Number(process.env.WORKER_NUM));
+  }
 } else {
-  console.error('Provide a port!');
+  const storage = new UserStore();
+  balancer.storage = storage;
+
+  startServer(0);
 }

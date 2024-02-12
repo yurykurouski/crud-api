@@ -25,3 +25,17 @@ export const MODE = readParams(CLI_ARG_MODE);
 
 export const PORT = Number(process.env.PORT);
 
+// export const REQUEST_GET_USERS = "GET_USERS";
+// export const REQUEST_GET_USER = "GET_USER";
+// export const REQUEST_DELETE_USER = "DELETE_USER";
+// export const REQUEST_POST_USER = "POST_USER";
+// export const REQUEST_PUT_USER = "PUT_USER";
+
+export enum REQUESTS {
+  GET_USERS = "GET_USERS",
+  GET_USER = "GET_USER",
+  DELETE_USER = "DELETE_USER",
+  POST_USER = "POST_USER",
+  PUT_USER = "PUT_USER",
+}
+

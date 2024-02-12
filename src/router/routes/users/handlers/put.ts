@@ -5,10 +5,11 @@ import {
   MESSAGE_INTERNAL_ERROR,
   MESSAGE_INVALID_ID,
   MESSAGE_WRONG_USER_DATA,
+  REQUESTS,
 } from '../../../../constants';
-import UserStore from '../../../../store';
-import { TServerResponse } from '../../../../types';
+import { TServerResponse, User } from '../../../../types';
 import { parseReqParams, sendData } from '../../../../utils';
+import { handleDataRequest } from '../../../handleDataRequest';
 
 export const handlePut = (req: IncomingMessage, res: TServerResponse) => {
   const userId = parseReqParams(req.url?.slice(1))?.[0];
@@ -27,9 +28,9 @@ export const handlePut = (req: IncomingMessage, res: TServerResponse) => {
       const data = Buffer.concat(chunks).toString();
 
       try {
-        const updatedUser = UserStore.updateUser(userId!, JSON.parse(data));
-
-        sendData(res, updatedUser, 200);
+        handleDataRequest(REQUESTS.PUT_USER, (newUser: User) => {
+          sendData(res, newUser, 200);
+        }, { userId, data: JSON.parse(data) });
       } catch {
         sendData(res, MESSAGE_WRONG_USER_DATA, 400);
       }

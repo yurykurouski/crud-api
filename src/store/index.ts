@@ -1,9 +1,11 @@
+import { Serializable } from 'child_process';
 import { v4 as uuidv4 } from 'uuid';
 
 import {
   ALLOWED_USER_FIELDS,
   MESSAGE_NO_USER,
   MESSAGE_WRONG_USER_DATA,
+  REQUESTS,
 } from '../constants';
 import { User } from '../types';
 
@@ -16,7 +18,6 @@ export class UserStore {
 
   private _addUser(user: User): User {
     this._users.push(user);
-
     return user;
   }
 
@@ -50,7 +51,6 @@ export class UserStore {
       id: uuid,
       ...data,
     };
-
     return this._addUser(user);
   }
   public getUser(userID: string): User | undefined {
@@ -84,6 +84,25 @@ export class UserStore {
       ...this._users.slice(index + 1),
     ];
   }
+
+  public storageRequests(type: REQUESTS, param?: Serializable) {
+    switch (type) {
+      case REQUESTS.GET_USERS:
+        return this.getUsers();
+      case REQUESTS.GET_USER:
+        return this.getUser(param as string);
+      case REQUESTS.DELETE_USER:
+        try {
+          return this.deleteUser(param as string);
+        } catch (e) {
+          return MESSAGE_NO_USER;
+        }
+      case REQUESTS.POST_USER:
+        return this.createUser(JSON.parse(param as string));
+      case REQUESTS.PUT_USER:
+        //@ts-expect-error
+        return this.updateUser(param?.userId, param?.data);
+    }
+  }
 }
 
-export default new UserStore();
